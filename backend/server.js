@@ -3,10 +3,12 @@ import morgan from 'morgan'
 import cors from 'cors'
 import dotenv from 'dotenv'
 import products from './data/products.js'
-
+import connectDB from './config/db.js'
+import colors from 'colors'
 dotenv.config()
-const app = express()
 
+const app = express()
+connectDB()
 app.use(morgan('tiny'))
 app.use(cors())
 app.get('/', (req, res) => {
@@ -25,5 +27,6 @@ app.get('/api/products/:id', (req, res) => {
 app.listen(process.env.PORT || 5000, () => {
   console.log(
     `Listen running in ${process.env.NODE_ENV} ${process.env.PORT || 5000}`
+      .yellow.bold
   )
 })
